@@ -2,6 +2,11 @@
 
 load test_helper
 
+setup() {
+  mkdir -p "${GOENV_ROOT}/versions/1.9.2"
+  mkdir -p "${GOENV_ROOT}/versions/1.10.1"
+}
+
 create_command() {
   bin="${GOENV_TEST_DIR}/bin"
   mkdir -p "$bin"
@@ -30,8 +35,10 @@ else
   exit 1
 fi"
   run goenv-completions hello
-  assert_success
-  assert_line '--help'
+  assert_success_out <<OUT
+--help
+not_important
+OUT
 }
 
 @test "it returns specified command with completion support's completion suggestions" {
@@ -43,8 +50,7 @@ else
   exit 1
 fi"
   run goenv-completions hello
-  assert_success
-  assert_output <<OUT
+  assert_success_out <<OUT
 --help
 hello
 OUT
@@ -59,8 +65,7 @@ else
   exit 1
 fi"
   run goenv-completions hello
-  assert_success
-  assert_output <<OUT
+  assert_success_out <<OUT
 --help
 hello
 OUT
@@ -82,8 +87,7 @@ else
   exit 1
 fi"
   run goenv-completions hello happy world
-  assert_success
-  assert_output <<OUT
+  assert_success_out <<OUT
 --help
 happy
 world

@@ -4,14 +4,14 @@ load test_helper
 
 @test "has usage instructions" {
   run goenv-help --usage init
-  assert_success <<'OUT'
-eval "$(goenv init - [--no-rehash] [<shell>])"
+  assert_success_out <<'OUT'
+Usage: eval "$(goenv init - [--no-rehash] [<shell>])"
 OUT
 }
 
 @test "has completion support" {
   run goenv-init --complete
-  assert_success <<OUT
+  assert_success_out <<OUT
 -
 --no-rehash
 bash
@@ -56,8 +56,7 @@ OUT
 @test "prints usage snippet when no '-' argument is given, but shell given is 'bash'" {
   run goenv-init bash
 
-  assert_success
-  assert_output <<'OUT'
+  assert_success_out <<'OUT'
 # Load goenv automatically by appending
 # the following to ~/.bash_profile:
 
@@ -68,8 +67,7 @@ OUT
 @test "prints usage snippet when no '-' argument is given, but shell given is 'zsh'" {
   run goenv-init zsh
 
-  assert_success
-  assert_output <<'OUT'
+  assert_success_out <<'OUT'
 # Load goenv automatically by appending
 # the following to ~/.zshrc:
 
@@ -80,8 +78,7 @@ OUT
 @test "prints usage snippet when no '-' argument is given, but shell given is 'fish'" {
   run goenv-init fish
 
-  assert_success
-  assert_output <<'OUT'
+  assert_success_out <<OUT
 # Load goenv automatically by appending
 # the following to ~/.config/fish/config.fish:
 
@@ -92,8 +89,7 @@ OUT
 @test "prints usage snippet when no '-' argument is given, but shell given is 'ksh'" {
   run goenv-init ksh
 
-  assert_success
-  assert_output <<'OUT'
+  assert_success_out <<'OUT'
 # Load goenv automatically by appending
 # the following to ~/.profile:
 
@@ -104,8 +100,7 @@ OUT
 @test "prints usage snippet when no '-' argument is given, but shell given is none of the well known ones" {
   run goenv-init magicalshell
 
-  assert_success
-  assert_output <<"OUT"
+  assert_success_out <<'OUT'
 # Load goenv automatically by appending
 # the following to <unknown shell: magicalshell, replace with your profile path>:
 
